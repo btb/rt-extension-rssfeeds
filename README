@@ -8,3 +8,10 @@ install to <plugin folder>/RT-Extension-RSSFeeds
 Add "RT::Extension::RSSFeeds" to the @Plugins array in your RT_SiteConfig.pm
 
 To use:
+Click Logged in as <username>->Settings->RSS Feeds
+Paste the feed URL, and check boxes to show the feed's title and/or image.
+Click "Update RSS Feed" to preview the feed.
+Select a privacy option, type a description, and click save.
+
+Your saved RSS Feeds will now show up as available queries in your MyRT or
+dashboard edit pages.
