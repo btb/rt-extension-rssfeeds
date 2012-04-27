@@ -1,0 +1,6 @@
+<%perl>
+Menu()->child('preferences')->child('settings')->child( perldoc =>
+    title => "RSS Feeds",
+    path  => "/Prefs/RSSFeeds.html"
+);
+</%perl>
