@@ -1,5 +1,0 @@
-<%init>
-return if RT->can('AddStyleSheets');
-</%init>
-<link rel="stylesheet" href="<%$RT::WebPath%>/NoAuth/css/rssfeeds.css" type="text/css" media="all" />
-
