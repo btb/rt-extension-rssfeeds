@@ -1,0 +1,10 @@
+<%INIT>
+    $tabs->{'rss'} = {
+        path  => "Prefs/RSSFeeds.html",
+        title => loc('RSS Feeds'),
+    };
+
+</%INIT>
+<%ARGS>
+$tabs
+</%ARGS>

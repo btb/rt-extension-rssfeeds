@@ -1,0 +1,110 @@
+%#synchronized with /html/Ticket/Graphs/index.html from rt 3.8.8-3
+%# BEGIN BPS TAGGED BLOCK {{{
+%# 
+%# COPYRIGHT:
+%# 
+%# This software is Copyright (c) 1996-2009 Best Practical Solutions, LLC
+%#                                          <jesse@bestpractical.com>
+%# 
+%# (Except where explicitly superseded by other copyright notices)
+%# 
+%# 
+%# LICENSE:
+%# 
+%# This work is made available to you under the terms of Version 2 of
+%# the GNU General Public License. A copy of that license should have
+%# been provided with this software, but in any event can be snarfed
+%# from www.gnu.org.
+%# 
+%# This work is distributed in the hope that it will be useful, but
+%# WITHOUT ANY WARRANTY; without even the implied warranty of
+%# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+%# General Public License for more details.
+%# 
+%# You should have received a copy of the GNU General Public License
+%# along with this program; if not, write to the Free Software
+%# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+%# 02110-1301 or visit their web page on the internet at
+%# http://www.gnu.org/licenses/old-licenses/gpl-2.0.html.
+%# 
+%# 
+%# CONTRIBUTION SUBMISSION POLICY:
+%# 
+%# (The following paragraph is not intended to limit the rights granted
+%# to you to modify and distribute this software under the terms of
+%# the GNU General Public License and is only of importance to you if
+%# you choose to contribute your changes and enhancements to the
+%# community by submitting them to Best Practical Solutions, LLC.)
+%# 
+%# By intentionally submitting any modifications, corrections or
+%# derivatives to this work, or any other work intended for use with
+%# Request Tracker, to Best Practical Solutions, LLC, you confirm that
+%# you are the copyright holder for those contributions and you grant
+%# Best Practical Solutions,  LLC a nonexclusive, worldwide, irrevocable,
+%# royalty-free, perpetual, license to use, copy, create derivative
+%# works based on those contributions, and sublicense and distribute
+%# those contributions and any derivatives thereof.
+%# 
+%# END BPS TAGGED BLOCK }}}
+<& /Elements/Header, Title => $title &>
+<& /User/Elements/Tabs,
+    current_tab => 'Prefs/RSSFeeds.html',
+    Title => $title,
+&>
+
+<& /Elements/ListActions, actions => \@results &>
+
+%if ($src) {
+<& /Elements/RSSPortlet, %ARGS &>
+%}
+
+<form action="<% RT->Config->Get('WebPath') . $m->request_comp->path %>">
+
+<&| /Widgets/TitleBox, title => loc('RSS Feed Properties') &>
+<&|/l&>URL</&>:
+<input size="70" name="src" value="<% $src %>" /><br />
+<% loc('Show') %>:
+<input type="checkbox" name="ShowTitle" value="1" <% $ShowTitle?'checked':'' |n %> /><% loc('Title') %>
+<input type="checkbox" name="ShowImage" value="1" <% $ShowImage?'checked':'' |n %> /><% loc('Image') %>
+
+<& /Elements/Submit, Label => loc('Update RSS Feed'), Name => 'Update' &>
+
+</&>
+
+<input type="hidden" class="hidden" name="SavedSearchId" value="<% $saved_search->{Id} %>" />
+<& /Search/Elements/EditSearches,
+    %$saved_search,
+    Title         => loc('Manage saved RSS feeds'),
+    Type          => 'RSSFeed',
+    SearchFields  => \@save_arguments,
+    CurrentSearch => { map { $_ => $ARGS{$_} } @save_arguments },
+    AllowCopy     => 0,
+&>
+</form>
+
+<%ARGS>
+$src => undef
+$ShowTitle => 0
+$ShowImage => 0
+</%ARGS>
+<%INIT>
+my @results;
+
+my @save_arguments = qw(src ShowTitle ShowImage);
+my $saved_search = { Type => 'RSSFeed' };
+push @results, $m->comp( '/Search/Elements/EditSearches:Init',
+    %ARGS,
+    Query        => \%ARGS,
+    SavedSearch  => $saved_search,
+    SearchFields => \@save_arguments,
+);
+
+push @results, $m->comp( '/Search/Elements/EditSearches:Save',
+    %ARGS,
+    Query        => \%ARGS,
+    SavedSearch  => $saved_search,
+    SearchFields => \@save_arguments,
+);
+
+my $title = loc( "RSS Feeds" );
+</%INIT>

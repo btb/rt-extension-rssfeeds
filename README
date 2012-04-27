@@ -1,0 +1,10 @@
+RT::Extension::RSSFeeds
+=======================
+
+Add arbitrary RSS feeds to your dashboards
+
+To install:
+install to <plugin folder>/RT-Extension-RSSFeeds
+Add "RT::Extension::RSSFeeds" to the @Plugins array in your RT_SiteConfig.pm
+
+To use:
