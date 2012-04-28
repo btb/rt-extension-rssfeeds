@@ -51,7 +51,7 @@
 
 <& /Elements/ListActions, actions => \@results &>
 
-%if ($src) {
+%if ($ARGS{'src'}) {
 <& /Elements/RSSPortlet, %ARGS &>
 %}
 
@@ -59,10 +59,10 @@
 
 <&| /Widgets/TitleBox, title => loc('RSS Feed Properties') &>
 <&|/l&>URL</&>:
-<input size="70" name="src" value="<% $src %>" /><br />
+<input size="70" name="src" value="<% $ARGS{'src'} %>" /><br />
 <% loc('Show') %>:
-<input type="checkbox" name="ShowTitle" value="1" <% $ShowTitle?'checked':'' |n %> /><% loc('Title') %>
-<input type="checkbox" name="ShowImage" value="1" <% $ShowImage?'checked':'' |n %> /><% loc('Image') %>
+<input type="checkbox" name="ShowTitle" value="1" <% $ARGS{'ShowTitle'}?'checked':'' |n %> /><% loc('Title') %>
+<input type="checkbox" name="ShowImage" value="1" <% $ARGS{'ShowImage'}?'checked':'' |n %> /><% loc('Image') %>
 
 <& /Elements/Submit, Label => loc('Update RSS Feed'), Name => 'Update' &>
 
@@ -80,9 +80,6 @@
 </form>
 
 <%ARGS>
-$src => undef
-$ShowTitle => 0
-$ShowImage => 0
 </%ARGS>
 <%INIT>
 my @results;
@@ -96,6 +93,9 @@ push @results, $m->comp( '/Search/Elements/EditSearches:Init',
     SearchFields => \@save_arguments,
 );
 
+my $description = '';
+$description = $saved_search->{Description} if $saved_search->{Description};
+
 push @results, $m->comp( '/Search/Elements/EditSearches:Save',
     %ARGS,
     Query        => \%ARGS,
@@ -103,5 +103,5 @@ push @results, $m->comp( '/Search/Elements/EditSearches:Save',
     SearchFields => \@save_arguments,
 );
 
-my $title = loc( "RSS Feeds" );
+my $title = loc( "RSS Feed [_1]", $description );
 </%INIT>
