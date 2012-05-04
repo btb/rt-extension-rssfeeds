@@ -1,3 +1,1 @@
-<%init>
-return $m->comp('/Elements/RSSPortlet', %ARGS);
-</%init>
+<& /Elements/RSSPortlet, %ARGS &>

@@ -1,3 +1,5 @@
 <%init>
-return $m->comp('/Prefs/RSSFeeds.html', %ARGS );
+RT::Interface::Web::Redirect(RT->Config->Get('WebURL').
+        'Prefs/RSSFeeds.html?' . $m->comp( '/Elements/QueryString',
+            %ARGS, Load => 'Load', CurrentSearch => $ARGS{LoadSavedSearch} ) );
 </%init>
