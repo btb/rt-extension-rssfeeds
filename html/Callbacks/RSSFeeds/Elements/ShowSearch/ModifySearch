@@ -1,0 +1,14 @@
+<%perl>
+
+return unless $RT::VERSION =~ /^3/;
+return unless $Search->{'SearchType'} && $Search->{'SearchType'} eq 'RSSFeed';
+
+# HACK to avoid warnings in RT3
+$Search->{'Query'} ||= '';
+$OriginalSearch->{'Query'} ||= '';
+
+</%perl>
+<%args>
+$OriginalSearch
+$Search
+</%args>
