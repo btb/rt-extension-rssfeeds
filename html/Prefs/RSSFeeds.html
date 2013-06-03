@@ -59,7 +59,7 @@
 
 <&| /Widgets/TitleBox, title => loc('RSS Feed Properties') &>
 <&|/l&>URL</&>:
-<input size="70" name="src" value="<% $ARGS{'src'} %>" /><br />
+<input size="70" name="src" value="<% $ARGS{'src'}?$ARGS{'src'}:'' %>" /><br />
 <% loc('Show') %>:
 <input type="checkbox" name="ShowTitle" value="1" <% $ARGS{'ShowTitle'}?'checked':'' |n %> /><% loc('Title') %>
 <input type="checkbox" name="ShowImage" value="1" <% $ARGS{'ShowImage'}?'checked':'' |n %> /><% loc('Image') %>
