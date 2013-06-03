@@ -47,7 +47,11 @@
 %#
 %# END BPS TAGGED BLOCK }}}
 <& /Elements/Header, Title => $title &>
+%if ($RT::VERSION =~ /^3/) {
+<& /User/Elements/Tabs, current_tab => 'Prefs/RSSFeeds.html', Title => $title &>
+%} else {
 <& /Elements/Tabs &>
+%}
 
 <& /Elements/ListActions, actions => \@results &>
 

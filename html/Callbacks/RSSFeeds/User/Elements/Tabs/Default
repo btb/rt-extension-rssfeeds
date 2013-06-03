@@ -1,0 +1,9 @@
+<%perl>
+    $tabs->{'rssfeeds'} = {
+        title => loc('RSS Feeds'),
+        path  => 'Prefs/RSSFeeds.html',
+    };
+</%perl>
+<%args>
+$tabs
+</%args>
